@@ -23,8 +23,7 @@ namespace PassGen
             const string validchar = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWZ1234567890!@,.?";
             StringBuilder result = new StringBuilder();
             Random rand = new Random();
-            while (0 < len--)
-            { result.Append(validchar[rand.Next(validchar.Length)]); }
+            while (0 < len--)            { result.Append(validchar[rand.Next(validchar.Length)]); }
             textBox2.Text = result.ToString();
             string CreatedPass;
             string SecureCode;
@@ -77,8 +76,7 @@ namespace PassGen
             const string validchar = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWZ1234567890!@,.?";
             StringBuilder result = new StringBuilder();
             Random rand = new Random();
-            while (0 < len--)
-            { result.Append(validchar[rand.Next(validchar.Length)]); }
+            while (0 < len--)            { result.Append(validchar[rand.Next(validchar.Length)]); }
             textBox1.Text = result.ToString();
         }
         private void textBox2_TextChanged(object sender, EventArgs e)
