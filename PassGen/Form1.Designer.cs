@@ -181,7 +181,7 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(256, 27);
             this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "@dnv.com";
+            this.richTextBox1.Text = "";
             // 
             // button2
             // 
