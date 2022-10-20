@@ -17,7 +17,6 @@ namespace PassGen
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             int len = 6;
@@ -37,32 +36,26 @@ namespace PassGen
             besendto = richTextBox1.Text;
 
         }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-
         private void label2_Click(object sender, EventArgs e)
         {
 
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
         private void label3_Click(object sender, EventArgs e)
         {
 
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -102,11 +95,9 @@ namespace PassGen
             while (0 < len--)
             { result.Append(validchar[rand.Next(validchar.Length)]); }
             textBox2.Text = result.ToString();
-            richTextBox1.Text = ("@dnv.com");
+            richTextBox1.Text = ("");
             textBox3.Clear();
         }
-
-
         private void button2_Click(object sender, EventArgs e)
         {
             CreateDocument();
@@ -116,7 +107,6 @@ namespace PassGen
             CreateMailItem1();
             CreateMailItem2();
         }
-        //Create document method  
         private void CreateDocument()
         {
             try
@@ -232,8 +222,7 @@ namespace PassGen
                 MessageBox.Show(ex.Message);
             }
         }
-    }
-   private void CreateMailItem2()
+        private void CreateMailItem1()
     {
         string CreatedPass;
         string SecureCode;
@@ -248,11 +237,33 @@ namespace PassGen
         MailItem item = app.CreateItem((OlItemType.olMailItem));
         item.BodyFormat = OlBodyFormat.olFormatHTML;
         item.To = besendto;
-        item.Body = "The code for the Word file is: " + SecureCode;
+        item.Body = "This email contains the encrypted Word file, please check the second email to find the code.";
+        item.Subject = "New Credentials";
+        item.Display(false);
+        item.Save();
+
+    }
+        private void CreateMailItem2()
+    {
+        string CreatedPass;
+        string SecureCode;
+        string Usr;
+        string besendto;
+        CreatedPass = textBox1.Text;
+        SecureCode = textBox2.Text;
+        Usr = textBox3.Text;
+        besendto = richTextBox1.Text;
+
+        Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
+        MailItem item = app.CreateItem((OlItemType.olMailItem));
+        item.BodyFormat = OlBodyFormat.olFormatHTML;
+        item.To = besendto;
+        item.Body = "The encryption code for the Word file is: " + SecureCode;
         item.Subject = "New Credentials - 2";
         item.Display(false);
         item.Save();
 
+    }
     }
 }
 
