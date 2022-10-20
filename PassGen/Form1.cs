@@ -239,6 +239,7 @@ namespace PassGen
         item.To = besendto;
         item.Body = "This email contains the encrypted Word file, please check the second email to find the code.";
         item.Subject = "New Credentials";
+        
         item.Display(false);
         item.Save();
 
