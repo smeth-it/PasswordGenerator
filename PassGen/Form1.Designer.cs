@@ -50,8 +50,12 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -128,7 +132,7 @@
             // button1
             // 
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(335, 127);
+            this.button1.Location = new System.Drawing.Point(335, 132);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(173, 36);
             this.button1.TabIndex = 6;
@@ -179,7 +183,7 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.Info;
-            this.label8.Location = new System.Drawing.Point(0, 183);
+            this.label8.Location = new System.Drawing.Point(0, 197);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(523, 15);
             this.label8.TabIndex = 18;
@@ -239,7 +243,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBox3);
             this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(3, 96);
+            this.panel1.Location = new System.Drawing.Point(3, 82);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(523, 84);
@@ -258,14 +262,18 @@
             // panel3
             // 
             this.panel3.AutoSize = true;
+            this.panel3.Controls.Add(this.checkBox7);
+            this.panel3.Controls.Add(this.checkBox6);
+            this.panel3.Controls.Add(this.checkBox5);
+            this.panel3.Controls.Add(this.checkBox4);
             this.panel3.Controls.Add(this.checkBox3);
             this.panel3.Controls.Add(this.checkBox2);
             this.panel3.Controls.Add(this.checkBox1);
             this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.label8);
-            this.panel3.Location = new System.Drawing.Point(3, 183);
+            this.panel3.Location = new System.Drawing.Point(3, 169);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(523, 198);
+            this.panel3.Size = new System.Drawing.Size(523, 212);
             this.panel3.TabIndex = 27;
             // 
             // panel4
@@ -282,6 +290,15 @@
             this.panel4.Size = new System.Drawing.Size(526, 565);
             this.panel4.TabIndex = 101;
             // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel6.Location = new System.Drawing.Point(0, 387);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(526, 3);
+            this.panel6.TabIndex = 102;
+            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.label6);
@@ -296,14 +313,49 @@
             this.panel5.Size = new System.Drawing.Size(526, 149);
             this.panel5.TabIndex = 102;
             // 
-            // panel6
+            // checkBox4
             // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel6.Location = new System.Drawing.Point(0, 387);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(526, 3);
-            this.panel6.TabIndex = 102;
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox4.Location = new System.Drawing.Point(217, 24);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(95, 22);
+            this.checkBox4.TabIndex = 19;
+            this.checkBox4.Text = "Numbers";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox5.Location = new System.Drawing.Point(217, 52);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(129, 22);
+            this.checkBox5.TabIndex = 20;
+            this.checkBox5.Text = "Upper Letters";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox6.Location = new System.Drawing.Point(217, 80);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(130, 22);
+            this.checkBox6.TabIndex = 21;
+            this.checkBox6.Text = "Lower Letters";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox7.Location = new System.Drawing.Point(350, 24);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(170, 22);
+            this.checkBox7.TabIndex = 22;
+            this.checkBox7.Text = "Special Characters";
+            this.checkBox7.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -364,6 +416,10 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }
 
