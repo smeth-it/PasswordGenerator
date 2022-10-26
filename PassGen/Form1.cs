@@ -195,6 +195,26 @@ namespace PassGen
         item.Save();
 
     }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            //Numbers option
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            //Upper letters
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            //Lower letters
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            //Special Characters
+        }
     }
 }
 

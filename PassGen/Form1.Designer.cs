@@ -49,13 +49,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -172,7 +172,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Location = new System.Drawing.Point(25, 82);
+            this.label7.Location = new System.Drawing.Point(11, 71);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 18);
             this.label7.TabIndex = 16;
@@ -192,9 +192,9 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(28, 108);
+            this.textBox2.Location = new System.Drawing.Point(14, 92);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(186, 24);
+            this.textBox2.Size = new System.Drawing.Size(147, 24);
             this.textBox2.TabIndex = 19;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -276,6 +276,54 @@
             this.panel3.Size = new System.Drawing.Size(523, 212);
             this.panel3.TabIndex = 27;
             // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox7.Location = new System.Drawing.Point(350, 24);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(170, 22);
+            this.checkBox7.TabIndex = 22;
+            this.checkBox7.Text = "Special Characters";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox6.Location = new System.Drawing.Point(217, 80);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(130, 22);
+            this.checkBox6.TabIndex = 21;
+            this.checkBox6.Text = "Lower Letters";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox5.Location = new System.Drawing.Point(217, 52);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(129, 22);
+            this.checkBox5.TabIndex = 20;
+            this.checkBox5.Text = "Upper Letters";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkBox4.Location = new System.Drawing.Point(217, 24);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(95, 22);
+            this.checkBox4.TabIndex = 19;
+            this.checkBox4.Text = "Numbers";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.panel6);
@@ -312,50 +360,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(526, 149);
             this.panel5.TabIndex = 102;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.checkBox4.Location = new System.Drawing.Point(217, 24);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(95, 22);
-            this.checkBox4.TabIndex = 19;
-            this.checkBox4.Text = "Numbers";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.checkBox5.Location = new System.Drawing.Point(217, 52);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(129, 22);
-            this.checkBox5.TabIndex = 20;
-            this.checkBox5.Text = "Upper Letters";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.checkBox6.Location = new System.Drawing.Point(217, 80);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(130, 22);
-            this.checkBox6.TabIndex = 21;
-            this.checkBox6.Text = "Lower Letters";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.checkBox7.Location = new System.Drawing.Point(350, 24);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(170, 22);
-            this.checkBox7.TabIndex = 22;
-            this.checkBox7.Text = "Special Characters";
-            this.checkBox7.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
