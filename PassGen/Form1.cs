@@ -195,6 +195,11 @@ namespace PassGen
         item.Save();
 
     }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
