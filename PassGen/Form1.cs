@@ -118,7 +118,8 @@ namespace PassGen
                 Usr = textBox3.Text;
                 besendto = richTextBox1.Text;
                 //Create an instance for word app  
-                Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
+                Microsoft.Office.Interop.Word.Application application = new Microsoft.Office.Interop.Word.Application();
+                Microsoft.Office.Interop.Word.Application winword = application;
 
                 //Set animation status for word application  
                 winword.ShowAnimation = false;
@@ -165,15 +166,15 @@ namespace PassGen
 
         Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
         MailItem item = app.CreateItem((OlItemType.olMailItem));
+            Microsoft.Office.Interop.Outlook.Attachments MyAttachments = item.Attachments;
         item.BodyFormat = OlBodyFormat.olFormatHTML;
         item.To = besendto;
         item.Body = "This email contains the encrypted Word file, please check the second email to find the code.";
         item.Subject = "New Credentials";
-        
+        MyAttachments.Add  ("C:/Temp/Credentials.docx");
         item.Display(false);
         item.Save();
-
-    }
+        }
         private void CreateMailItem2()
     {
         string CreatedPass;
