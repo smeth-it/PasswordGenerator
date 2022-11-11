@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_91F2ACB4BE970612CE3C59630DB2F6C3"
+        "OwnerKey" = "8:_11B595A8E5F4405FBB45883ACC8D2047"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A716D68CA3064AC1949345E9C35F5FE8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -35,6 +41,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_11B595A8E5F4405FBB45883ACC8D2047"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_91F2ACB4BE970612CE3C59630DB2F6C3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -87,7 +99,7 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -138,6 +150,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_91F2ACB4BE970612CE3C59630DB2F6C3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Office.Interop.Visio.WorkflowAuthoring, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_91F2ACB4BE970612CE3C59630DB2F6C3"
+                    {
+                    "Name" = "8:Microsoft.Office.Interop.Visio.WorkflowAuthoring.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Office.Interop.Visio.WorkflowAuthoring.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0BD8C44CB1E9405B9F024150B7D3AB2C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A716D68CA3064AC1949345E9C35F5FE8"
             {
             "SourcePath" = "8:..\\PassGen\\password_3715.ico"
@@ -257,7 +300,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{09A77560-2913-4189-BA58-87DED6346DC9}"
-        "PackageCode" = "8:{DAC82704-C582-4049-901E-478D8D0B48CA}"
+        "PackageCode" = "8:{7B7AA693-D539-4A6F-8500-209B06ED4D7F}"
         "UpgradeCode" = "8:{21044B5D-3344-4767-86ED-8A68E53DD379}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -834,7 +877,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_11B595A8E5F4405FBB45883ACC8D2047"
             {
-            "SourcePath" = "8:..\\PassGen\\obj\\Debug\\Password Generator.exe"
+            "SourcePath" = "8:..\\PassGen\\obj\\Release\\Password Generator.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0BD8C44CB1E9405B9F024150B7D3AB2C"
