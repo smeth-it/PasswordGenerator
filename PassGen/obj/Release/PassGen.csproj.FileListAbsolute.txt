@@ -1,0 +1,14 @@
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\bin\Release\Password Generator.exe.config
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\bin\Release\Password Generator.exe
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\bin\Release\Password Generator.pdb
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\bin\Release\Microsoft.Office.Interop.Visio.WorkflowAuthoring.dll
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.csproj.AssemblyReference.cache
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.csproj.SuggestedBindingRedirects.cache
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.csproj.ResolveComReference.cache
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.Form1.resources
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.Properties.Resources.resources
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.csproj.GenerateResource.cache
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.csproj.CoreCompileInputs.cache
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.csproj.CopyComplete
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\Password Generator.exe
+C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\Password Generator.pdb
