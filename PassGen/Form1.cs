@@ -1,226 +1,181 @@
 ﻿using System;
-using System.Net;
-using System.Reflection;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.Office.Interop.Outlook;
-using Microsoft.Office.Interop.Word;
-using System.Collections.Generic;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Outlook = Microsoft.Office.Interop.Outlook;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace PassGen
 {
     public partial class Form1 : Form
     {
+        private const string TempFolder = @"C:\Temp";
+        private const string WordFile = @"C:\Temp\Credentials.docx";
+
         public Form1()
         {
             InitializeComponent();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            int len = 6;
-            const string validchar = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWZ1234567890!@,.?";
-            StringBuilder result = new StringBuilder();
-            Random rand = new Random();
-            while (0 < len--)            { result.Append(validchar[rand.Next(validchar.Length)]); }
-            textBox2.Text = result.ToString();
-            string CreatedPass;
-            string SecureCode;
-            string Usr;
-            string besendto;
-            CreatedPass = textBox1.Text;
-            SecureCode = textBox2.Text;
-            Usr = textBox3.Text;
-            besendto = richTextBox1.Text;
-
+            Directory.CreateDirectory(TempFolder);
+            textBox2.Text = GeneratePassword(6, DefaultCharset());
+            radioLen12.Checked = true;
         }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
-        private void label2_Click(object sender, EventArgs e)
-        {
+        // =====================================================
+        // PASSWORD GENERATION
+        // =====================================================
 
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void buttonGenerate_Click(object sender, EventArgs e)
         {
+            int length = radioLen8.Checked ? 8 :
+                         radioLen16.Checked ? 16 : 12;
 
+            textBox1.Text = GeneratePassword(length, BuildCharset());
         }
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
-        private void label3_Click(object sender, EventArgs e)
+        private string GeneratePassword(int length, string charset)
         {
+            if (string.IsNullOrWhiteSpace(charset))
+                throw new InvalidOperationException("Select at least one character type.");
 
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
+            var sb = new StringBuilder(length);
+            byte[] buffer = new byte[4];
+
+            using var rng = RandomNumberGenerator.Create();
+            for (int i = 0; i < length; i++)
             {
-                PassGen(8);
+                rng.GetBytes(buffer);
+                int idx = BitConverter.ToInt32(buffer, 0) & int.MaxValue;
+                sb.Append(charset[idx % charset.Length]);
             }
-            else if (checkBox2.Checked)
-            {
-                PassGen(12);
-            }
-            else if (checkBox3.Checked)
-            {
-                PassGen(16);
-            }
-            else { PassGen(12); }
+            return sb.ToString();
         }
-        public void PassGen(int len)
-        {
-            const string validchar = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWZ1234567890!@,.?";
-            StringBuilder result = new StringBuilder();
-            Random rand = new Random();
-            while (0 < len--)            { result.Append(validchar[rand.Next(validchar.Length)]); }
-            textBox1.Text = result.ToString();
-        }
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
 
+        private string DefaultCharset() =>
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@,.?";
+
+        private string BuildCharset()
+        {
+            var sb = new StringBuilder();
+
+            if (checkBox4.Checked) sb.Append("0123456789");
+            if (checkBox5.Checked) sb.Append("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            if (checkBox6.Checked) sb.Append("abcdefghijklmnopqrstuvwxyz");
+            if (checkBox7.Checked) sb.Append("!@,.?");
+
+            return sb.ToString();
         }
-        private void button3_Click(object sender, EventArgs e)
+
+        // =====================================================
+        // RESET
+        // =====================================================
+
+        private void buttonReset_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
-            int len = 6;
-            const string validchar = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWZ1234567890!@,.?";
-            StringBuilder result = new StringBuilder();
-            Random rand = new Random();
-            while (0 < len--)
-            { result.Append(validchar[rand.Next(validchar.Length)]); }
-            textBox2.Text = result.ToString();
-            richTextBox1.Text = ("");
             textBox3.Clear();
+            richTextBox1.Clear();
+            textBox2.Text = GeneratePassword(6, DefaultCharset());
         }
-        private void button2_Click(object sender, EventArgs e)
+
+        // =====================================================
+        // WORD + OUTLOOK
+        // =====================================================
+
+        private void buttonSend_Click(object sender, EventArgs e)
         {
-            CreateDocument();
+            CreateWordDocument();
+            SendMailWithAttachment();
+            SendMailWithCode();
+            CleanupWordFile();
         }
-        private void button5_Click(object sender, EventArgs e)
+
+        private void CreateWordDocument()
         {
-            CreateMailItem1();
-            CreateMailItem2();
+            var data = ReadForm();
+
+            Word.Application wordApp = null;
+            Word.Document doc = null;
+
+            try
+            {
+                wordApp = new Word.Application { Visible = false };
+                doc = wordApp.Documents.Add();
+
+                doc.Content.Text =
+                    $"Your new password for the account {data.User} is {data.Password}";
+
+                doc.Password = data.Code;
+                doc.SaveAs2(WordFile);
+            }
+            finally
+            {
+                doc?.Close(false);
+                wordApp?.Quit(false);
+            }
         }
-        private void CreateDocument()
+
+        private void SendMailWithAttachment()
+        {
+            var data = ReadForm();
+
+            var outlook = new Outlook.Application();
+            var mail = (Outlook.MailItem)outlook.CreateItem(Outlook.OlItemType.olMailItem);
+
+            mail.To = data.Recipient;
+            mail.Subject = "New Credentials";
+            mail.Body =
+                "This email contains the encrypted Word document.\r\n" +
+                "The password will arrive in a second email.";
+
+            mail.Attachments.Add(WordFile);
+            mail.Display(false);
+            mail.Save();
+        }
+
+        private void SendMailWithCode()
+        {
+            var data = ReadForm();
+
+            var outlook = new Outlook.Application();
+            var mail = (Outlook.MailItem)outlook.CreateItem(Outlook.OlItemType.olMailItem);
+
+            mail.To = data.Recipient;
+            mail.Subject = "New Credentials – Access Code";
+            mail.Body = $"The encryption code for the Word file is:\r\n\r\n{data.Code}";
+            mail.Display(false);
+            mail.Save();
+        }
+
+        private void CleanupWordFile()
         {
             try
             {
-                string CreatedPass;
-                string SecureCode;
-                string Usr;
-                string besendto;
-                CreatedPass = textBox1.Text;
-                SecureCode = textBox2.Text;
-                Usr = textBox3.Text;
-                besendto = richTextBox1.Text;
-                //Create an instance for word app  
-                Microsoft.Office.Interop.Word.Application application = new Microsoft.Office.Interop.Word.Application();
-                Microsoft.Office.Interop.Word.Application winword = application;
-
-                //Set animation status for word application  
-                winword.ShowAnimation = false;
-
-                //Set status for word application is to be visible or not.  
-                winword.Visible = false;
-
-                //Create a missing variable for missing value  
-                object missing = System.Reflection.Missing.Value;
-
-                //Create a new document  
-                Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-
-                //adding text to document  
-                document.Content.SetRange(0, 0);
-                document.Content.Text = "Your new password for the account " + Usr + " is " + CreatedPass;
-
-                //Save the document
-                object filename = @"c:\Temp\Credentials.docx";
-                object Password = SecureCode;
-                document.Password = SecureCode;
-                document.SaveAs(ref filename);
-                document.Close(ref missing, ref missing, ref missing);
-                document = null;
-                winword.Quit(ref missing, ref missing, ref missing);
-                winword = null;
-                MessageBox.Show("Document created successfully !");
+                if (File.Exists(WordFile))
+                    File.Delete(WordFile);
             }
-            catch (System.Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                // intentional silence – file deletion must not block UX
             }
         }
-        private void CreateMailItem1()
-    {
-        string CreatedPass;
-        string SecureCode;
-        string Usr;
-        string besendto;
-        CreatedPass = textBox1.Text;
-        SecureCode = textBox2.Text;
-        Usr = textBox3.Text;
-        besendto = richTextBox1.Text;
 
-        Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
-        MailItem item = app.CreateItem((OlItemType.olMailItem));
-            Microsoft.Office.Interop.Outlook.Attachments MyAttachments = item.Attachments;
-        item.BodyFormat = OlBodyFormat.olFormatHTML;
-        item.To = besendto;
-        item.Body = "This email contains the encrypted Word file, please check the second email to find the code.";
-        item.Subject = "New Credentials";
-        MyAttachments.Add  ("C:/Temp/Credentials.docx");
-        item.Display(false);
-        item.Save();
-        }
-        private void CreateMailItem2()
-    {
-        string CreatedPass;
-        string SecureCode;
-        string Usr;
-        string besendto;
-        CreatedPass = textBox1.Text;
-        SecureCode = textBox2.Text;
-        Usr = textBox3.Text;
-        besendto = richTextBox1.Text;
+        // =====================================================
+        // UTIL
+        // =====================================================
 
-        Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
-        MailItem item = app.CreateItem((OlItemType.olMailItem));
-        item.BodyFormat = OlBodyFormat.olFormatHTML;
-        item.To = besendto;
-        item.Body = "The encryption code for the Word file is: " + SecureCode;
-        item.Subject = "New Credentials - 2";
-        item.Display(false);
-        item.Save();
-
-    }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        private (string Password, string Code, string User, string Recipient) ReadForm()
         {
-            //Numbers option
-        }
-
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-            //Upper letters
-        }
-
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
-        {
-            //Lower letters
-        }
-
-        private void checkBox7_CheckedChanged(object sender, EventArgs e)
-        {
-            //Special Characters
-        }
-
-        private void label3_Click_1(object sender, EventArgs e)
-        {
-
+            return (
+                textBox1.Text.Trim(),
+                textBox2.Text.Trim(),
+                textBox3.Text.Trim(),
+                richTextBox1.Text.Trim()
+            );
         }
     }
 }
-
