@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DNV")]
 [assembly: AssemblyProduct("PassGen")]
-[assembly: AssemblyCopyright("Copyright © DNV 2022")]
+[assembly: AssemblyCopyright("Copyright © ALBMOR 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

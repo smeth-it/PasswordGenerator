@@ -11,3 +11,7 @@ C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\Pass
 C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\Password Generator.exe
 C:\Users\ALBMOR\Source\Repos\smeth-it\PasswordGenerator\PassGen\obj\Release\Password Generator.pdb
 C:\Users\ALBMOR\source\repos\smeth-it\PasswordGenerator\PassGen\obj\Release\PassGen.csproj.Up2Date
+C:\Users\ALBMOR\source\repos\smeth-it\PasswordGenerator\PassGen\bin\Release\Password Generator.exe.manifest
+C:\Users\ALBMOR\source\repos\smeth-it\PasswordGenerator\PassGen\bin\Release\Password Generator.application
+C:\Users\ALBMOR\source\repos\smeth-it\PasswordGenerator\PassGen\obj\Release\Password Generator.exe.manifest
+C:\Users\ALBMOR\source\repos\smeth-it\PasswordGenerator\PassGen\obj\Release\Password Generator.application
