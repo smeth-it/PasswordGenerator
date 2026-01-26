@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32929.385
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassGen", "PassGen\PassGen.csproj", "{C4D364F0-B5B4-4399-AE51-162B2B3E6E6E}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{F864CC4F-9F96-4FC0-9B9F-C4FD6ADCBE5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +15,6 @@ Global
 		{C4D364F0-B5B4-4399-AE51-162B2B3E6E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4D364F0-B5B4-4399-AE51-162B2B3E6E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4D364F0-B5B4-4399-AE51-162B2B3E6E6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F864CC4F-9F96-4FC0-9B9F-C4FD6ADCBE5D}.Debug|Any CPU.ActiveCfg = Release
-		{F864CC4F-9F96-4FC0-9B9F-C4FD6ADCBE5D}.Debug|Any CPU.Build.0 = Release
-		{F864CC4F-9F96-4FC0-9B9F-C4FD6ADCBE5D}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

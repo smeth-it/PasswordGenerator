@@ -1,181 +1,175 @@
 ﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using Word = Microsoft.Office.Interop.Word;
 
-namespace PassGen
+namespace PassGen // <--- CHANGE THIS to match your project name
 {
-    public partial class Form1 : Form
+    public class Form1 : Form
     {
-        private const string TempFolder = @"C:\Temp";
-        private const string WordFile = @"C:\Temp\Credentials.docx";
+        // 1. Declare class-level fields so methods can see them
+        private TextBox txtUser, txtPass, txtEmail, txtSecure;
+        private RadioButton radioLen8, radioLen12, radioLen16;
+        private Button btnGenerate, btnClear, btnCreateDoc, btnDrafts;
+
+        // Theme Colors
+        private Color bgDark = Color.FromArgb(10, 18, 42);
+        private Color accentBlue = Color.FromArgb(0, 102, 204);
 
         public Form1()
         {
-            InitializeComponent();
+            // Form Window Setup
+            this.Text = "Password Generator";
+            this.Size = new Size(500, 600);
+            this.BackColor = bgDark;
+            this.ForeColor = Color.White;
+            this.Font = new Font("Segoe UI", 9.5f);
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
+
+            InitializeCustomComponents();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void InitializeCustomComponents()
         {
-            Directory.CreateDirectory(TempFolder);
-            textBox2.Text = GeneratePassword(6, DefaultCharset());
+            // Title
+            Label lblTitle = new Label
+            {
+                Text = "Password Generator",
+                Font = new Font("Segoe UI", 20),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Top,
+                Height = 80
+            };
+
+            // Inputs
+            Label lblUser = new Label { Text = "User:", Location = new Point(20, 100), AutoSize = true };
+            txtUser = CreateStyledInput(120, 98, 340);
+
+            Label lblPass = new Label { Text = "Password:", Location = new Point(20, 140), AutoSize = true };
+            txtPass = CreateStyledInput(120, 138, 340);
+
+            // Radio Buttons (Grouped by sharing the same parent: 'this')
+            radioLen8 = new RadioButton { Text = "8 Characters", Location = new Point(30, 190), AutoSize = true };
+            radioLen12 = new RadioButton { Text = "12 Characters", Location = new Point(30, 220), AutoSize = true, Checked = true };
+            radioLen16 = new RadioButton { Text = "16 Characters", Location = new Point(30, 250), AutoSize = true };
+
+            Label lblWip = new Label
+            {
+                Text = "Other features are WiP",
+                ForeColor = Color.DarkGray,
+                Font = new Font("Segoe UI", 9, FontStyle.Italic),
+                Location = new Point(250, 220),
+                AutoSize = true
+            };
+
+            // Generate Button
+            btnGenerate = CreateFlatButton("Generate", 280, 290, 180, 40);
+            btnGenerate.Click += BtnGenerate_Click;
+
+            Label lblNote = new Label
+            {
+                Text = "By default it will generate a 12 characters password",
+                Font = new Font("Segoe UI", 8),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(0, 350),
+                Size = new Size(500, 20)
+            };
+
+            // Separator
+            Panel pnlLine = new Panel { BackColor = accentBlue, Location = new Point(0, 380), Size = new Size(500, 3) };
+
+            // Bottom Section
+            Label lblEmail = new Label { Text = "Email to send credentials:", Location = new Point(20, 400), AutoSize = true };
+            txtEmail = CreateStyledInput(220, 398, 240);
+
+            Label lblSecure = new Label { Text = "Secure code", Location = new Point(20, 430), AutoSize = true };
+            txtSecure = CreateStyledInput(20, 455, 150);
+            txtSecure.Text = "Ph6?UW";
+
+            btnCreateDoc = CreateFlatButton("Create document", 280, 430, 180, 35);
+            btnDrafts = CreateFlatButton("Create drafts", 280, 475, 180, 35);
+
+            // Footer Clear Button
+            btnClear = new Button
+            {
+                Text = "Clear Form",
+                Dock = DockStyle.Bottom,
+                Height = 40,
+                BackColor = Color.White,
+                ForeColor = Color.Black,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold)
+            };
+            btnClear.FlatAppearance.BorderSize = 0;
+            btnClear.Click += BtnClear_Click;
+
+            // Add all to Form
+            this.Controls.AddRange(new Control[] {
+                lblTitle, lblUser, txtUser, lblPass, txtPass, radioLen8, radioLen12, radioLen16,
+                lblWip, btnGenerate, lblNote, pnlLine, lblEmail, txtEmail,
+                lblSecure, txtSecure, btnCreateDoc, btnDrafts, btnClear
+            });
+        }
+
+        // Logic for Generation
+        private void BtnGenerate_Click(object sender, EventArgs e)
+        {
+            int length = 12;
+            if (radioLen8.Checked) length = 8;
+            if (radioLen16.Checked) length = 16;
+
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?";
+            var random = new Random();
+            txtPass.Text = new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        // Logic for Clear
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            txtUser.Clear();
+            txtPass.Clear();
+            txtEmail.Clear();
+            txtSecure.Text = "Ph6?UW";
             radioLen12.Checked = true;
         }
 
-        // =====================================================
-        // PASSWORD GENERATION
-        // =====================================================
-
-        private void buttonGenerate_Click(object sender, EventArgs e)
+        // Helper Methods for Styling
+        private TextBox CreateStyledInput(int x, int y, int width)
         {
-            int length = radioLen8.Checked ? 8 :
-                         radioLen16.Checked ? 16 : 12;
-
-            textBox1.Text = GeneratePassword(length, BuildCharset());
-        }
-
-        private string GeneratePassword(int length, string charset)
-        {
-            if (string.IsNullOrWhiteSpace(charset))
-                throw new InvalidOperationException("Select at least one character type.");
-
-            var sb = new StringBuilder(length);
-            byte[] buffer = new byte[4];
-
-            using var rng = RandomNumberGenerator.Create();
-            for (int i = 0; i < length; i++)
+            return new TextBox
             {
-                rng.GetBytes(buffer);
-                int idx = BitConverter.ToInt32(buffer, 0) & int.MaxValue;
-                sb.Append(charset[idx % charset.Length]);
-            }
-            return sb.ToString();
+                Location = new Point(x, y),
+                Width = width,
+                BackColor = Color.White,
+                ForeColor = Color.Black,
+                BorderStyle = BorderStyle.FixedSingle
+            };
         }
 
-        private string DefaultCharset() =>
-            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@,.?";
-
-        private string BuildCharset()
+        private Button CreateFlatButton(string text, int x, int y, int w, int h)
         {
-            var sb = new StringBuilder();
-
-            if (checkBox4.Checked) sb.Append("0123456789");
-            if (checkBox5.Checked) sb.Append("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-            if (checkBox6.Checked) sb.Append("abcdefghijklmnopqrstuvwxyz");
-            if (checkBox7.Checked) sb.Append("!@,.?");
-
-            return sb.ToString();
-        }
-
-        // =====================================================
-        // RESET
-        // =====================================================
-
-        private void buttonReset_Click(object sender, EventArgs e)
-        {
-            textBox1.Clear();
-            textBox3.Clear();
-            richTextBox1.Clear();
-            textBox2.Text = GeneratePassword(6, DefaultCharset());
-        }
-
-        // =====================================================
-        // WORD + OUTLOOK
-        // =====================================================
-
-        private void buttonSend_Click(object sender, EventArgs e)
-        {
-            CreateWordDocument();
-            SendMailWithAttachment();
-            SendMailWithCode();
-            CleanupWordFile();
-        }
-
-        private void CreateWordDocument()
-        {
-            var data = ReadForm();
-
-            Word.Application wordApp = null;
-            Word.Document doc = null;
-
-            try
+            Button btn = new Button
             {
-                wordApp = new Word.Application { Visible = false };
-                doc = wordApp.Documents.Add();
-
-                doc.Content.Text =
-                    $"Your new password for the account {data.User} is {data.Password}";
-
-                doc.Password = data.Code;
-                doc.SaveAs2(WordFile);
-            }
-            finally
-            {
-                doc?.Close(false);
-                wordApp?.Quit(false);
-            }
+                Text = text,
+                Location = new Point(x, y),
+                Size = new Size(w, h),
+                BackColor = Color.White,
+                ForeColor = Color.Black,
+                FlatStyle = FlatStyle.Flat
+            };
+            btn.FlatAppearance.BorderSize = 0;
+            return btn;
         }
 
-        private void SendMailWithAttachment()
+        [STAThread]
+        static void Main()
         {
-            var data = ReadForm();
-
-            var outlook = new Outlook.Application();
-            var mail = (Outlook.MailItem)outlook.CreateItem(Outlook.OlItemType.olMailItem);
-
-            mail.To = data.Recipient;
-            mail.Subject = "New Credentials";
-            mail.Body =
-                "This email contains the encrypted Word document.\r\n" +
-                "The password will arrive in a second email.";
-
-            mail.Attachments.Add(WordFile);
-            mail.Display(false);
-            mail.Save();
-        }
-
-        private void SendMailWithCode()
-        {
-            var data = ReadForm();
-
-            var outlook = new Outlook.Application();
-            var mail = (Outlook.MailItem)outlook.CreateItem(Outlook.OlItemType.olMailItem);
-
-            mail.To = data.Recipient;
-            mail.Subject = "New Credentials – Access Code";
-            mail.Body = $"The encryption code for the Word file is:\r\n\r\n{data.Code}";
-            mail.Display(false);
-            mail.Save();
-        }
-
-        private void CleanupWordFile()
-        {
-            try
-            {
-                if (File.Exists(WordFile))
-                    File.Delete(WordFile);
-            }
-            catch
-            {
-                // intentional silence – file deletion must not block UX
-            }
-        }
-
-        // =====================================================
-        // UTIL
-        // =====================================================
-
-        private (string Password, string Code, string User, string Recipient) ReadForm()
-        {
-            return (
-                textBox1.Text.Trim(),
-                textBox2.Text.Trim(),
-                textBox3.Text.Trim(),
-                richTextBox1.Text.Trim()
-            );
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }
